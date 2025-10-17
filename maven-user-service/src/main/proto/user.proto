@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.artembuzed";
+option java_outer_classname = "UserProtos";
+package User;
+// Service definition
+message CheckUserExistsRequest {
+  string user_id = 1;
+}
+
+// Response message containing the boolean result
+message CheckUserExistsResponse {
+  bool exists = 1;
+}
+service UserService {
+  // Checks if a user exists by their userId
+  rpc CheckUserExists (CheckUserExistsRequest) returns (CheckUserExistsResponse);
+}
