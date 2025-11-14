@@ -14,6 +14,12 @@ public class InMemoryRegistrationRepository implements RegistrationRepository {
 
     private final List<Registration> registrations = new CopyOnWriteArrayList<>();
 
+    public InMemoryRegistrationRepository() {
+        registrations.add(new Registration("alkjd", "fdsfsdfsf", "alice"));
+        registrations.add(new Registration("fds", "fdsk.f", "alice"));
+        registrations.add(new Registration("fds", "fdsk.f", "bob"));
+    }
+
     @Override
     public List<Registration> findAll() {
         return Collections.unmodifiableList(registrations);

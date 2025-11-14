@@ -4,15 +4,19 @@ import java.util.Date;
 
 public class Registration {
     public Long id;
-    public final String userId;
-    public final String status;
-    public final String eventId;
-    public final Date registeredAt = new Date();
+    public String userId;
+    public String status;
+    public String eventId;
+    public Date registeredAt = new Date();
 
-    public Registration(String userId, String status, String eventId) {
+    public Registration() {
+        this.registeredAt = new Date();
+    }
+    public Registration(String status, String eventId, String userId) {
         this.userId = userId;
         this.status = status;
         this.eventId = eventId;
+        this.registeredAt = new Date();
     }
 
     public boolean idIsValid(Long id) {

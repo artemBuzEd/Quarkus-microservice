@@ -1,0 +1,54 @@
+{@java.lang.String name}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Registrations</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+
+<body>
+
+<header>
+  <h1>Registrations</h1>
+  <p>Logged in as: <strong>{name}</strong></p>
+  <a href="/logout">Log out</a>
+</header>
+
+<section>
+  <h2>Create a new registration</h2>
+  <p>
+    <a href="/registration/create" class="button">Create Registration</a>
+  </p>
+</section>
+
+<hr/>
+
+<section>
+  <div>
+    <label for="eventId">Event ID:</label>
+    <input type="text" id="eventId" name="eventId" required/>
+
+    <button type="button"
+            hx-post="/register"
+            hx-target="#registration-result"
+            hx-swap="innerHTML"
+            hx-include="[name='eventId']">
+      Create Registration
+    </button>
+  </div>
+
+  <h2>All Registrations</h2>
+
+  <div id="registration-result"
+       hx-get="/allRegistrations"
+       hx-swap="innerHTML"
+       hx-trigger="load">
+  </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{@java.util.Collection<com.artembuzed.model.Registration> registrations}
+<div id="registrationlist">
+    <table>
+        <thead>
+        <tr>
+            <th>Registration ID</th>
+            <th>User ID</th>
+            <th>Status</th>
+            <th>Event ID</th>
+            <th>Date of registration</th>
+        </tr>
+        </thead>
+        {#for registration in registrations}
+        <tr>
+            <td>{registration.id}</td>
+            <td>{registration.userId}</td>
+            <td>{registration.status}</td>
+            <td>{registration.eventId}</td>
+            <td>{registration.registeredAt}</td>
+        </tr>
+        {/for}
+    </table>
+</div>

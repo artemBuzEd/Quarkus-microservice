@@ -1,0 +1,16 @@
+<div>
+  <h2>Create Registration</h2>
+
+  <div>
+    <label for="eventId">Event ID:</label>
+    <input type="text" id="eventId" name="eventId" required/>
+    <br/>
+    <button type="button"
+            hx-post="/register"
+            hx-target="#registration-result"
+            hx-swap="innerHTML"
+            hx-include="[name='eventId']">
+      Create Registration
+    </button>
+  </div>
+</div>
