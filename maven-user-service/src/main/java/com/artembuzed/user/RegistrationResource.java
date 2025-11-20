@@ -72,7 +72,7 @@ public class RegistrationResource {
         Registration reg = new Registration();
         reg.userId = userId;
         reg.eventId = eventId;
-        reg.status = "Waited";
+        reg.status = "Registered";
         Log.info("Registration created: " + reg);
         registrationClient.createRegistration(reg);
 

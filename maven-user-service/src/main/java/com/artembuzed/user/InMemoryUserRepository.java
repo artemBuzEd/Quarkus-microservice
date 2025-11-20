@@ -7,8 +7,8 @@ import java.util.Hashtable;
 public class InMemoryUserRepository implements UserRepository {
     private static final Dictionary<String, User> userDictionary = new Hashtable<>();
     public InMemoryUserRepository() {
-        userDictionary.put("hdjahkj123", new User("hdjahkj123","johndoe@gmail.com","0990990999"));
-        userDictionary.put("jsldfj2314", new User("jsldfj2314","tarasShevchenko@gmail.com","0950842334"));
+        userDictionary.put("alice", new User("alice","johndoe@gmail.com","0990990999"));
+        userDictionary.put("bob", new User("bob","tarasShevchenko@gmail.com","0950842334"));
         userDictionary.put("asdfl33fds", new User("asdfl33fds","ivanFranko@gmail.com","0983842351"));
     }
     @Override
