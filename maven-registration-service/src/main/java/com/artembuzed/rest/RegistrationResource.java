@@ -1,17 +1,21 @@
 package com.artembuzed.rest;
 import com.artembuzed.UserService;
-import com.artembuzed.payment.Payment;
+import com.artembuzed.payment.Invoice;
 import com.artembuzed.payment.PaymentClient;
 import com.artembuzed.registration.entity.Registration;
 import io.quarkus.grpc.GrpcClient;
 import io.quarkus.logging.Log;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.SecurityContext;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Path("registration")
@@ -22,6 +26,10 @@ public class RegistrationResource {
 
     @GrpcClient("userservice")
     UserService userService;
+
+    @Inject
+    @Channel("invoice-request")
+    Emitter<Invoice> requestEmitter;
 
     public RegistrationResource(@RestClient PaymentClient paymentClient,
                                 SecurityContext securityContext) {
@@ -68,13 +76,23 @@ public class RegistrationResource {
 
         registration.userId = authenticatedUserId;
 
+
         Log.info("Successfully saved registration with ID: " + registration.id + " for user: " + authenticatedUserId);
 
         if(registration.statusIsRegistered()){
-            Payment payment = paymentClient.createPayment(registration.userId, registration.id);
-            Log.info("Successfully created payment" + payment);
+            //Payment payment = paymentClient.createPayment(registration.userId, registration.id);
+            requestEmitter.send(new Invoice(registration.id, authenticatedUserId, registration.status, priceGenerator()));
+            Log.info("Successfully created payment");
         }
 
         return registration;
+    }
+
+    private double priceGenerator() {
+        double min = 10.0;
+        double max = 100.0;
+
+        Random rand = new Random();
+        return rand.nextDouble() * (max - min) + min;
     }
 }

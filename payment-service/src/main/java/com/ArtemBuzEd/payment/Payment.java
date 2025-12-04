@@ -15,6 +15,7 @@ public class Payment {
     private Long id;
     private String userId;
     private Long registrationId;
+    private double amount;
     private LocalDate CreatedAt = LocalDate.now();
 
     public void setUserId(String userId){
@@ -23,5 +24,11 @@ public class Payment {
 
     public void setRegistrationId(Long registrationId){
         this.registrationId = registrationId;
+    }
+
+    public void setAmount(double amount){
+        if(amount < 0)
+            amount = 100;
+        this.amount = amount;
     }
 }
